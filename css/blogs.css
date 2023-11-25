@@ -1,0 +1,136 @@
+.wrapper-blogs-intro {
+  background-image: url(../img/intro-nestjs.webp);
+  height: 100vh;
+}
+
+.wrapper-blogs-reactjs {
+  background-image: url(../img/intro-reactjs.webp);
+  height: 100vh;
+}
+
+.wrapper-blogs-chieusinh {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.group-showMore {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+.effect-showMore {
+  animation: MoveUpDown 1s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: -1.75rem;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.group-blogs-intro-content {
+  height: calc(100vh - 373px);
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  color: #fff;
+  width: 500px;
+}
+
+.group-blogs-intro-content-update {
+  height: calc(100vh - 373px);
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  color: #fff;
+  column-gap: 1rem;
+}
+
+.group-blogs-intro-content-update .intro-content-text {
+  flex: 1;
+}
+
+.group-blogs-intro-content-update .intro-content-image {
+  flex: 1;
+  background-image: url(../../img/intro-chieusinh.webp);
+  width: 100%;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.wrapper-blogs-reason {
+  padding: 2rem 3rem;
+  color: #fff;
+}
+
+.wrapper-blogs-text {
+  padding: 0 3rem 2rem;
+  color: #fff;
+}
+
+@media only screen and (max-width: 1280px) {
+  .group-showMore {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .wrapper-blogs-intro {
+    background-image: none;
+  }
+  .wrapper-blogs-reactjs {
+    background-image: none;
+  }
+  .group-blogs-intro-content {
+    width: fit-content;
+    height: 100%;
+    align-items: start;
+  }
+
+  .group-blogs-intro-content-update {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+
+  .group-blogs-intro-content-update .intro-content-image {
+    flex: auto;
+  }
+
+  .wrapper-blogs-chieusinh {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .wrapper-blogs-reason {
+    padding: 2rem;
+  }
+  .wrapper-blogs-text {
+    padding: 0 2rem 2rem;
+  }
+
+  .group-blogs-intro-content {
+    padding: 0 2rem;
+  }
+
+  .group-blogs-intro-content-update {
+    padding: 0 2rem;
+  }
+
+  .group-blogs-intro-content-update .intro-content-image {
+    height: 250px;
+  }
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 20px;
+  }
+}
