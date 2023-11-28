@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </noscript>
+
+  <!-- Nội dung cần phải thay đổi -->
+  <title>useEffect là gì? Cách sử dụng useEffect trong React Hook</title>
+  <link rel="canonical" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <link rel="shortlink" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta name="news_keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta name="keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta property="og:type" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta property="og:url" content="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta property="og:title" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta name="description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <meta name="og:description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <!-- Nội dung cần phải thay đổi -->
+
+  <meta property="og:site_name" content="Nine Dev - Phát Triển Tư Duy Lập Trình" />
+  <meta property="og:image" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:url" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:type" content="website">
+  <meta property="og:image:width" content="294" />
+  <meta property="og:image:height" content="294" />
+  <meta property="og:image:alt" content="https://ninedev.net/img/logo-share.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png" />
+  <link rel="icon" type="image/png" href="/img/logo.png" />
+  <link rel="shortcut icon" href="https://ninedev.net/img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/share.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/blogs.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-44Y1HV8L61"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-44Y1HV8L61');
+  </script>
+</head>
+<style>
+  .img {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .img img {
+    width: 752px;
+    height: 342px;
+
+
+  }
+
+  a {
+    color: #551A8B;
+  }
+</style>
+
+<body>
+  <div class="wrapper-parent-ninedev">
+    <div class="wrapper-header-laptop" id="wrapper-header-laptop">
+      <div class="group-header-logo border-bottom">
+        <a href="/" class="box-header-logo">
+          <img class="img-header-logo" src="/img/logo.png" alt="Nine dev là nền tảng học lập trình trực tuyến">
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="/" class="item-nav">
+          <img class="img-item-nav" src="/img/fire-grey.png" />
+          <div class="txt-item-nav">Nine Dev</div>
+        </a>
+        <a href="/all-course" class="item-nav">
+          <img class="img-item-nav" src="/img/learn-white.png" />
+          <div class="txt-item-nav">Khóa học</div>
+        </a>
+        <a href="/all-project" class="item-nav">
+          <img class="img-item-nav" src="/img/start-up-grey.png" />
+          <div class="txt-item-nav">Dự án</div>
+        </a>
+        <a href="/blogs" class="item-nav active">
+          <img class="img-item-nav" src="/img/blogging.png" />
+          <div class="txt-item-nav active">Bài viết</div>
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="https://www.youtube.com/@ninedev99" target="_blank" class="item-nav">
+          <img class="img-item-nav" src="/img/youtube-grey.png"
+            alt="Truy cập vào channel youtube của Nine dev để có nhiều thông tin hơn" />
+          <div class="txt-item-nav">Youtube</div>
+        </a>
+      </div>
+      <div id="userInfo" class="group-header-nav">
+        <a href="/login" class="item-nav">
+          <img class="img-item-nav" src="/img/login-grey.png" alt="Đăng nhập để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng nhập</div>
+        </a>
+        <a href="/signup" class="item-nav">
+          <img class="img-item-nav" src="/img/user-grey.png" alt="Đăng ký để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng ký</div>
+        </a>
+      </div>
+    </div>
+    <div class="wrapper-header-mobile">
+      <div class="group-header-mobile">
+        <div class="group-header-logo">
+          <a href="/" class="box-header-logo">
+            <img class="img-header-logo" src="/img/logo.png" alt="" alt="nestjs cơ bản">
+          </a>
+        </div>
+        <div id="burger" class="burger">
+          <div class="strip burger-strip-2">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chỗ chỉnh sửa tiêu đề content nội dụng -->
+    <div class="wrapper-body">
+      <div class="group-body">
+        <div class="box-body-intro">
+          <div class="flex-1">
+            <h1 class="title-body-main">useState là gì?</h1>
+            <h2 class="title-body-sub">Cách sử dụng useState trong React Hook</h2><br><br>
+            <p style="color: #fff;">Chúng ta sẽ bắt đầu từ những khái niệm cơ bản, và từng bước một, chúng ta sẽ khám
+              phá cách sử dụng `useState` để quản lý trạng thái component và tạo ra những ứng dụng động, tương tác.</p>
+          </div>
+          <div class="flex-1 box-hello-intro">
+            <div class="title-bg-intro">Nine Dev</div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-blogs-text">
+
+        <!-- Chỗ viết Content Nội Dung -->
+        <h2 style="margin-top: 1rem; font-weight: 600;">I. useState hook là gì?</h2>
+        <p style="font-size: 16px; text-align: start;">
+          <span style="color: #3B4;">useState</span> là một <a href="https://legacy.reactjs.org/docs/hooks-intro.html"
+            style="text-decoration: underline;">Hook</a> cho phép bạn khởi tạo một state trong functional component.
+          <br><br>
+          Trước khi
+          hooks được giới thiệu, chúng ta bị giới hạn trong phạm vi sử dụng states bên trong class
+          components, nhưng từ bản update React v16,8 của facebook, họ đã cho ra mắt hàng loạt các
+          hooks sử dụng torng functional component và `useState hook`nằm trong số đó . <br><br>
+          Trước khi giới thiệu sâu hơn về `useState`, mình muốn cho các bạn quan sát sơ về sự khác biệt giữa `state` bên
+          trong `function component`.
+        </p>
+
+        <p>Như bạn thấy, `useState` không chỉ đơn giản hơn mà còn làm code sạch và dễ đọc hơn.</p>
+
+        <h2 style="margin-top: 3rem; font-weight: 600;">II. Thử triển khai useState hook</h2>
+        <p><span style="color: #3B4;">useState</span> nhận một đối số là giá trị khởi tạo của <span
+            style="font-weight: bold;">`state`</span> và trả về mảng gồm 2 phần tử:</p>
+        <p>
+          <li>Phần tử thứ nhất: là giá trị khởi tạo và sau khi cập nhật</li>
+          <li>Phần tử thứ hai: là hàm dùng để cập nhật thay đổi trạng thái `state`</li>
+          <br>
+        <div class="wrapper-render-code">
+          <code>
+           <div><span class="keyword">import</span> React, { useState } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
+            <div><span class="keyword">const</span> <span class="function">Test</span> = () => {</div>
+            <div  class="pl-1"><span class="keyword">const</span> [message, setMessage] = <span class="function">useState</span>([]);</div><br>
+            <div  class="pl-1"><span class="keyword">return</span> &lt;p&gt;{message}&lt;p&gt;</div>
+            <div>}</div>
+            </code>
+        </div>
+        <br>
+        <p>Thông thường, chúng ta sử dụng <a
+            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
+            style="text-decoration: underline;">array destructuring</a> để trích xuất giá trị trả về từ `useState`,
+          nhưng nó cũng có thể thực hiện như cách bên dưới</p>
+        <div class="wrapper-render-code">
+          <code>
+           <div><span class="keyword">import</span> React, { useState } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
+            <div><span class="keyword">const</span> <span class="function">Test</span> = () => {</div>
+            <div> <span class="comment pl-1">//Bad Practice</span> </div>
+            <div  class="pl-1"><span class="keyword">const</span> messageState = <span class="function">useState</span>("");</div>
+            <div  class="pl-1"><span class="keyword">const</span> valueMessage  = <span class="function">valueMessage </span>([0]);</div>
+            <div  class="pl-1"><span class="keyword">const</span> setValueMessage  = <span class="function">messageState</span>([1]);</div><br>
+            <div> <span class="comment pl-1">//Good Practice</span> </div>
+            <div  class="pl-1"><span class="keyword">const</span> [message, setMessage] = <span class="function">useState</span>([]);</div><br>
+            <div  class="pl-1"><span class="keyword">return</span> &lt;p&gt;{message}&lt;p&gt;</div>
+            <div>}</div>
+          </code>
+        </div>
+        </p>
+        <h2 style="margin-top: 3rem; font-weight: 600;">III. Làm thế nào để cập nhật giá trị trong useState?</h2>
+        <p>Khi khởi tạo, useState trả về 2 phần tử mà mình đã nói ở trên. <br> Đầu tiên là biến chứa giá trị, biến thứ 2 là hàm để cập nhật trạng thái cho `state`.</p> 
+        <br><p>Và cách sử dụng nó cũng rất đơn giản</p>
+        <div class="wrapper-render-code">
+          <code>
+           <div><span class="keyword">import</span> React, { useState } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
+            <div><span class="keyword">const</span> <span class="function">Test</span> = () => {</div>
+            <div> <span class="comment pl-1">//Good Practice</span> </div>
+            <div  class="pl-1"><span class="keyword">const</span> [message, setMessage] = <span class="function">useState</span>("Initialize");</div><br>
+            <div><span class="keyword pl-1">const</span> <span class="function">updateMessage </span> = () => {</div>
+              <div  class="pl-2"><span class="function">setMessage</span>("Clicked");</div>
+              <div class="pl-1">}</div>
+              <div  class="pl-1"><span class="keyword">return</span> &lt;p onClick={<span class="function">updateMessage</span>}&gt;{message}&lt;p&gt;</div>
+            <div>}</div>
+          </code>
+        </div>
+        <p>Giờ hãy thử xem bên trong IDE của bạn để thấy kết quả nhé. <br> Và tất nhiên kết quả là nó biến `Initialize` thành `Clicked`.</p>
+        <br><li> <span style="font-style: italic;">Lưu ý</span> : Kết quả không được cập nhật ngay trong hàm đâu nhé, vì nó là một cách xử lý bất đồng bồ. Đó là lý do tại sao bạn console.log() bên trong hàm `updateMessage` trên để xem giá trị của `message` lại không thay đổi.</li>
+        <h2 style="margin-top: 3rem; font-weight: 600;">IV. Về hiệu xuất</h2>
+        <p>Phương pháp triển khai useState ở trên hoàn toàn ổn. <br> Nhưng, trong một số trường hợp đặc biệt, chúng ta không muốn giá trị khởi tạo lần đầu trong `useState` được gán mặc định thủ công mà phải dựa vào thay đổi trước đó. <br> Giống như việc bạn thay đổi chế độ dark->light bạn không muốn khi f5 hoặc chuyển sang page khác rồi quay lại thì giá trị khởi tạo lần đầu vẫn là dark (Nó phải là light). <br><br><br> Vì vậy, chúng ta sẽ truyền vào đối số là một callback.</p>
+        <div class="wrapper-render-code" style="padding: 1rem;">
+          <code>
+            <div  class="pl-1"><span class="keyword">const</span> [message, setMessage] = <span class="function">useState</span>(()=>{<span class="comment">/** Thực hiện gì đó để khởi tạo giá trị mặc định */</span>});</div><br>
+          </code>
+        </div>
+        <p>Như vậy, chúng ta sẽ giúp giá trị khởi tạo của `useState` trở nên linh hoạt hơn trong các trường hợp cần thiết (Như ví dụ về dark/light).</p>
+        <p>Điều này có thể hữu ích khi bạn đang xử lý những logic đòi hỏi sự linh hoạt và phức tạp hơn. <br> Chạy đi, chạy lại nhiều lần sẽ ảnh hưởng đến hiệu xuất, nó sẽ tốt hơn nếu bạn sử dụng phương pháp này.</p>
+        <h2 style="margin-top: 3rem; font-weight: 600;">V. Tài liệu tham khảo</h2>
+        <br><div class="wrapper-render-code" style="padding: 1rem;">
+          <code>
+            <a style="color: #fff;" href="https://codestus.com/posts/react-hooks-series-tim-va-hieu-ve-usestate">https://codestus.com/posts/react-hooks-series-tim-va-hieu-ve-usestate</a>
+          </code>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper-footer-ninedev">
+    <div class="group-footer-ninedev">
+      <div class="box-footer">
+        <div class="title-footer">© Nine Dev 2023</div>
+        <div class="d-flex align-items-center">
+          <img class="img-footer-ninedev" src="/img/logo.png" />
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on YouTube</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/email-grey.png" />
+          <div class="txt-footer">tienkim9920@gmail.com</div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on Facebook</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/smartphone-grey.png" />
+          <div class="txt-footer">0763557366</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/logic/navbar.js"></script>
+</body>
+
+</html>
