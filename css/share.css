@@ -143,6 +143,15 @@ h2 {
 .pl-2 {
   padding-left: 32px;
 }
+.pl-3 {
+  padding-left: 54px;
+}
+.pl-4 {
+  padding-left: 78px;
+}
+.pl-5 {
+  padding-left: 98px;
+}
 
 .btn-main {
   padding: 0.8rem 3rem;
