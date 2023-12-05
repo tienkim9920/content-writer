@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </noscript>
+
+  <!-- Nội dung cần phải thay đổi -->
+  <title>useEffect là gì? Cách sử dụng useEffect trong React Hook</title>
+  <link rel="canonical" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <link rel="shortlink" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta name="news_keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta name="keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta property="og:type" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta property="og:url" content="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta property="og:title" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta name="description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <meta name="og:description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <!-- Nội dung cần phải thay đổi -->
+
+  <meta property="og:site_name" content="Nine Dev - Phát Triển Tư Duy Lập Trình" />
+  <meta property="og:image" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:url" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:type" content="website">
+  <meta property="og:image:width" content="294" />
+  <meta property="og:image:height" content="294" />
+  <meta property="og:image:alt" content="https://ninedev.net/img/logo-share.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png" />
+  <link rel="icon" type="image/png" href="/img/logo.png" />
+  <link rel="shortcut icon" href="https://ninedev.net/img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/share.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/blogs.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-44Y1HV8L61"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-44Y1HV8L61');
+  </script>
+</head>
+<style>
+  .img {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .img img {
+    width: 752px;
+    height: 342px;
+
+
+  }
+
+  a {
+    color: #551A8B;
+  }
+</style>
+
+<body>
+  <div class="wrapper-parent-ninedev">
+    <div class="wrapper-header-laptop" id="wrapper-header-laptop">
+      <div class="group-header-logo border-bottom">
+        <a href="/" class="box-header-logo">
+          <img class="img-header-logo" src="/img/logo.png" alt="Nine dev là nền tảng học lập trình trực tuyến">
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="/" class="item-nav">
+          <img class="img-item-nav" src="/img/fire-grey.png" />
+          <div class="txt-item-nav">Nine Dev</div>
+        </a>
+        <a href="/all-course" class="item-nav">
+          <img class="img-item-nav" src="/img/learn-white.png" />
+          <div class="txt-item-nav">Khóa học</div>
+        </a>
+        <a href="/all-project" class="item-nav">
+          <img class="img-item-nav" src="/img/start-up-grey.png" />
+          <div class="txt-item-nav">Dự án</div>
+        </a>
+        <a href="/blogs" class="item-nav active">
+          <img class="img-item-nav" src="/img/blogging.png" />
+          <div class="txt-item-nav active">Bài viết</div>
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="https://www.youtube.com/@ninedev99" target="_blank" class="item-nav">
+          <img class="img-item-nav" src="/img/youtube-grey.png"
+            alt="Truy cập vào channel youtube của Nine dev để có nhiều thông tin hơn" />
+          <div class="txt-item-nav">Youtube</div>
+        </a>
+      </div>
+      <div id="userInfo" class="group-header-nav">
+        <a href="/login" class="item-nav">
+          <img class="img-item-nav" src="/img/login-grey.png" alt="Đăng nhập để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng nhập</div>
+        </a>
+        <a href="/signup" class="item-nav">
+          <img class="img-item-nav" src="/img/user-grey.png" alt="Đăng ký để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng ký</div>
+        </a>
+      </div>
+    </div>
+    <div class="wrapper-header-mobile">
+      <div class="group-header-mobile">
+        <div class="group-header-logo">
+          <a href="/" class="box-header-logo">
+            <img class="img-header-logo" src="/img/logo.png" alt="" alt="nestjs cơ bản">
+          </a>
+        </div>
+        <div id="burger" class="burger">
+          <div class="strip burger-strip-2">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chỗ chỉnh sửa tiêu đề content nội dụng -->
+    <div class="wrapper-body">
+      <div class="group-body">
+        <div class="box-body-intro">
+          <div class="flex-1">
+            <h1 class="title-body-main">useContext là gì?</h1>
+            <p style="color: #fff;">Trong bài viết này chúng ta sẽ cùng nhau đi tìm hiểu về useContext trong React Hooks. <br> Đây là bài viết tiếp nối các bài viết về React Hooks trước đó. <br> Để hiểu rõ hơn về các khái niệm trong bài viêt này chúng ta có thể tham khảo thêm về bài viết React Context API.</p>
+          </div>
+          <div class="flex-1 box-hello-intro">
+            <div class="title-bg-intro">Nine Dev</div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-blogs-text">
+
+        <!-- Chỗ viết Content Nội Dung -->
+        <h2 style="margin-top: 1rem; font-weight: 600;">I. useContext là gì?</h2>
+        <p>useContext là một hooks trong React Hooks cho phép chúng ta có thể làm việc với React Context trong một functional component. <br> Giả sử khi chúng ta muốn lấy giá trị của context trong class component:</p><br>
+        <div class="wrapper-render-code">
+            <code>
+                <div><span class="keyword">import</span><span> AppContext</span> <span class="keyword">from</span><span class="string"> './appContext.js'</span>;</div><br>
+                <div><span class="keyword">const</span> <span class="function">MyClass</span> = () => {</div>
+                    <div class="pl-1"> <span class="comment">//Lấy giá trị của context</span> </div>
+                    <div class="pl-1"></div>
+                    <div><span class="keyword pl-1">const</span> <span class="">value </span> = <span class="function">useContext</span>(AppContext);</div>
+                        <div class="pl-1"> <span class="keyword">return</span> (</div>
+                            <div class="pl-2">...</div>
+                        <div class="pl-1">);</div>
+                    <div>}</div>
+
+
+            </code>
+        </div><br>
+        <p>Để sử dụng `useContext` chúng ta sẽ truyền vào hooks này một tham số duy nhất đó là Context Object (được tạo bởi React.createContext).</p>
+        <div class="wrapper-render-code">
+            <code>
+                <div><span class="keyword pl-1">const</span> <span class="">context </span> = <span class="function">useContext</span>(AppContext);</div>
+
+            </code>
+        </div><br>
+        <p>Phần tiếp theo chúng ta sẽ đi vào xây dựng các ví dụ liên quan đến `useContext` dựa vào các kiến thức đã học ở các phần trước.</p>
+        <h2 style="margin-top: 1rem; font-weight: 600;">II. Ví dụ về useContext trong React</h2><br>
+        <p>Ví dụ sử dụng context:</p><br>
+        <div class="wrapper-render-code">
+          <code> 
+            <div><span class="keyword">import</span> React <span class="keyword"> from </span><span class="string">"react"</span></div><br><br>
+            <div><span class="keyword">const</span> <span class="function">ExampleContext</span> = React.createContext();</div><br>
+            <div><span class="keyword">const</span> <span class="function">App</span> = () => {</div>
+              <div class="pl-1">return (</div>
+                <div class="pl-2">&lt;ExampleContext.Provider value={{ <span class="variable">color</span>: 'red' }}></span></div>
+                  <div class="pl-3">&lt;div className='App'&gt;</div>
+                    <div class="pl-4">&lt;ChildComponent /&gt;</div>
+                  <div class="pl-3">&lt;/div&gt;</div>
+                <div class="pl-2">&lt;/ExampleContext.Provider&gt;</div>
+              <div class="pl-1">);</div>
+            <div class="">};</div><br>
+            <div><span class="keyword">const</span> <span class="function">ChildComponent</span> = () => {</div>
+              <div class="pl-1"><span class="keyword">const</span>{ color } = React.<span class="function">useContext</span>(ExampleContext)</div><br>
+              <div class="pl-1"><span class="keyword">return</span> &lt;p style={{ color }}This text is {color}&gt;&lt;/p&gt;</div>
+            <div class="">};</div><br>
+            <div class=""><span class="keyword">export default</span> App;</div>
+          </code>
+        </div><br>
+        <p>Giải thích:</p><br>
+        <p>Đầu tiên chúng ta sẽ định nghĩa 1 context:</p><br>
+        <div class="wrapper-render-code">
+          <code>
+            <div><span class="keyword">const</span> <span class="function">ExampleContext</span> = React.createContext();</div><br>
+          </code>
+        </div><br>
+        <p>Sau đó bao bọc toàn bộ thành phần DOM của component bằng thẻ Provider, đồng thời truyền giá trị mà mình muốn chia sẻ đến các component khác</p><br>
+        <div class="wrapper-render-code">
+          <code>
+            <div class="pl-2">&lt;ExampleContext.Provider value={{ <span class="variable">color</span>: 'red' }}></span></div>
+                  <div class="pl-3">&lt;div className='App'&gt;</div>
+                    <div class="pl-4">&lt;ChildComponent /&gt;</div>
+                  <div class="pl-3">&lt;/div&gt;</div>
+                <div class="pl-2">&lt;/ExampleContext.Provider&gt;</div>
+          </code>
+        </div><br>
+        <p>Như vậy là chúng ta đã có thể sử dụng context đó trong các component con thông qua useContext:</p><br>
+        <div class="wrapper-render-code">
+          <code>
+            <div><span class="keyword">const</span> <span class="function">ChildComponent</span> = () => {</div>
+              <div class="pl-1"><span class="keyword">const</span>{ color } = React.<span class="function">useContext</span>(ExampleContext)</div><br>
+              <div class="pl-1"><span class="keyword">return</span> &lt;p style={{ color }}This text is {color}&gt;&lt;/p&gt;</div>
+            <div class="">};</div><br>
+          </code>
+        </div><br>
+        <h2 style="margin-top: 1rem; font-weight: 600;">III. Kết luận</h2><br>
+        <li>Tóm lại là với useContext chúng ta có thể chia sẻ state tới các component, useReducer thì cho phép chúng ta cập nhật giá trị mới cho state. Nghe khá là giống với flow của Redux phải không nào?</li><br>
+        <li>Vậy thì chúng ta có thể thay thế Redux bằng React Hooks không?</li><br>
+        <li>Câu trả lời là có! Tuy nhiên chỉ khi mà App của bạn có quy mô nhỏ, không nhiều state và bạn chỉ muốn chia sẻ state giữa các Component thì bạn hoàn toàn có thể sử dụng useContext để thay thế cho Redux.</li><br>
+        <li>Cảm ơn các bạn đã theo dõi, hy vọng qua bài viết này các bạn sẽ có 1 cái nhìn chính xác hơn về React Hooks và Redux đồng thời đưa ra được những lựa chọn công nghệ phù hợp cho dự án của mình.</li><br>
+        <h2 style="margin-top: 3rem; font-weight: 600;">IV. Tài liệu tham khảo</h2>
+        <br><div class="wrapper-render-code" style="padding: 1rem;">
+          <code>
+            <a style="color: #fff;" href="https://viblo.asia/p/su-dung-context-trong-react-theo-cach-don-gian-nhat-oOVlYjAn58W">https://viblo.asia/p/su-dung-context-trong-react-theo-cach-don-gian-nhat-oOVlYjAn58W</a>
+          </code>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="wrapper-footer-ninedev">
+    <div class="group-footer-ninedev">
+      <div class="box-footer">
+        <div class="title-footer">© Nine Dev 2023</div>
+        <div class="d-flex align-items-center">
+          <img class="img-footer-ninedev" src="/img/logo.png" />
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on YouTube</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/email-grey.png" />
+          <div class="txt-footer">tienkim9920@gmail.com</div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on Facebook</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/smartphone-grey.png" />
+          <div class="txt-footer">0763557366</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/logic/navbar.js"></script>
+</body>
+
+</html>

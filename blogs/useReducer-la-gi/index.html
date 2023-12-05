@@ -211,7 +211,60 @@
                 </div>
                 <p>Đó là 1 ví dụ đơn giản về `reducer`, cũng dễ hiểu đúng không nào, và bây giờ chúng ta cùng tìm hiểu `useReducer` hook trong React nhé</p><br>
                 <h2 style="margin-top: 1rem; font-weight: 600;">II. useReducer hook</h2>
-
+                <p>Như đã nói ở trên `useReducer` hook được sử dụng trong trường hợp component có state phức tạp và có nhiều action type làm thay đổi state đó.</p>
+                <p>`useReducer` function nhận vào reducer và initialState khởi tạo ban đầu, trả về state hiện tại và dispatch function dùng để trigger 1 action</p><br>
+                <p>Ok, chúng ta sẽ viết một TodoApp có thể render ra list item và toggle item đó đã hoàn thành hay chưa nhé, mình sẽ sử dụng lại todoReducer và initialTodos như trên nhé</p>
+                <div class="wrapper-render-code">
+                    <code>
+                        <div><span class="keyword">import</span><span> React</span> <span class="keyword">from</span><span class="string"> "react"</span>;</div><br>
+                        <div><span class="keyword">const</span> initialTodos  =  [...]; <span class="comment">// same as above</span> </div> 
+                        <div><span class="keyword">const</span> <span class="function">todoReducer </span> = (state, action) => newState; <span class="comment">//same as above</span> </div><br>
+                        <div><span class="keyword">const</span> <span class="function">App</span> = () => {</div>
+                            <div class="pl-1"> <span class="keyword">const</span> [todos, dispatch] = = React.<span class="function">useReducer</span>(</div>
+                                <div class="pl-2"> todoReducer,</div>
+                                <div class="pl-3"> initialTodos</div>
+                            <div class="pl-1">);</div><br>
+                        <div><span class="keyword">const</span> <span class="function">handleChange </span> = todo  => {</div>
+                            <div class="pl-1"> <span class="function">dispatch</span>({</div>
+                                <div class="pl-2">type: todo.complete ? 'UNDO_TODO' : 'DO_TODO',</div>
+                                <div class="pl-2">id: todo.id,</div>
+                            <div class="pl-1">});</div>
+                        <div>};</div><br>
+                        <div><span class="keyword">return</span>(</div>
+                            <div class="pl-1"> &lt;ul&gt;</div>
+                                <div class="pl-2">{todos <span class="function">map</span>(todo => (</div>
+                                    <div class="pl-3"> &lt;li key={todo.id}&gt;</div>
+                                        <div class="pl-4">&lt;label&gt;</div>
+                                            <div class="pl-5">&lt;input</div>
+                                            <div class="pl-5">type="checkbox"</div>
+                                            <div class="pl-5">checked={todo.complete}</div>
+                                            <div class="pl-5">onChange={() => <span class="function">handleChange</span>(todo)}</div>
+                                        <div class="pl-5">/></div>
+                                        <div class="pl-5">{todo.task}</div>
+                                        <div class="pl-4">&lt;label&gt;</div>   
+                                    <div class="pl-3"> &lt;/li&gt;</div>
+                                <div class="pl-2">))}</div>
+                            <div class="pl-1">&lt;/ul&gt;</div>   
+                        <div>);</div>
+                        <div>};</div><br>
+                        <div> <span class="keyword">export default</span> App;</div> 
+                    </code>
+                </div><br>
+                <p>Ở ví dụ trên:</p>
+                    <li>React.useReducer: dòng này sử dụng `useReducer` với 2 tham số `todoReducer` và `initialTodos`, trả về `todos` hiện tại và `dispatch` dùng để send action đến reducer làm thay đổi list `todos`</li>
+                    <li>handleChange: hàm này dùng để dispatch action chuyển đổi trạng thái của item là hoàn thành or chưa hoàn thành</li>
+                    <li>Tiếp theo chúng ta sẽ render ra list item `todos` đi kèm với 1 checkbox để switch trạng thái complete của item đó, mỗi lần check or uncheck thì sẽ call `handleChange`</li>
+                    <li>Mỗi lần switch trạng thái hoàn thành như vậy sẽ update `todos` và component sẽ được render lại với list `todos` vừa được update</li>
+                    <br><br>
+                <h2 style="margin-top: 1rem; font-weight: 600;">III. Kết luận</h2>
+                <p>React `useReducer` hook là một cách hữu ích để quản lý state trong React bên cạnh `useState`, và nó có thể kết hợp với `context` dùng để quản lý state trong một ứng dụng mà có thể không cần sử dụng đến `redux`</p>
+                <br><br>
+                <h2 style="margin-top: 1rem; font-weight: 600;">IV. Tài liêu tham khảo</h2>
+                <div class="wrapper-render-code">
+                    <code>
+                        <a style="color: #fff;" href="https://www.robinwieruch.de/react-usereducer-hook/">https://www.robinwieruch.de/react-usereducer-hook/</a>
+                    </code>
+                </div>
             </div>
         </div>
     </div>
