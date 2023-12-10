@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </noscript>
+
+  <!-- Nội dung cần phải thay đổi -->
+  <title>useEffect là gì? Cách sử dụng useEffect trong React Hook</title>
+  <link rel="canonical" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <link rel="shortlink" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta name="news_keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta name="keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta property="og:type" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta property="og:url" content="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta property="og:title" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta name="description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <meta name="og:description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <!-- Nội dung cần phải thay đổi -->
+
+  <meta property="og:site_name" content="Nine Dev - Phát Triển Tư Duy Lập Trình" />
+  <meta property="og:image" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:url" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:type" content="website">
+  <meta property="og:image:width" content="294" />
+  <meta property="og:image:height" content="294" />
+  <meta property="og:image:alt" content="https://ninedev.net/img/logo-share.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png" />
+  <link rel="icon" type="image/png" href="/img/logo.png" />
+  <link rel="shortcut icon" href="https://ninedev.net/img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/share.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/blogs.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-44Y1HV8L61"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-44Y1HV8L61');
+  </script>
+</head>
+<style>
+  .img {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .img img {
+    width: 752px;
+    height: 342px;
+
+
+  }
+
+  a {
+    color: #551A8B;
+  }
+</style>
+
+<body>
+  <div class="wrapper-parent-ninedev">
+    <div class="wrapper-header-laptop" id="wrapper-header-laptop">
+      <div class="group-header-logo border-bottom">
+        <a href="/" class="box-header-logo">
+          <img class="img-header-logo" src="/img/logo.png" alt="Nine dev là nền tảng học lập trình trực tuyến">
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="/" class="item-nav">
+          <img class="img-item-nav" src="/img/fire-grey.png" />
+          <div class="txt-item-nav">Nine Dev</div>
+        </a>
+        <a href="/all-course" class="item-nav">
+          <img class="img-item-nav" src="/img/learn-white.png" />
+          <div class="txt-item-nav">Khóa học</div>
+        </a>
+        <a href="/all-project" class="item-nav">
+          <img class="img-item-nav" src="/img/start-up-grey.png" />
+          <div class="txt-item-nav">Dự án</div>
+        </a>
+        <a href="/blogs" class="item-nav active">
+          <img class="img-item-nav" src="/img/blogging.png" />
+          <div class="txt-item-nav active">Bài viết</div>
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="https://www.youtube.com/@ninedev99" target="_blank" class="item-nav">
+          <img class="img-item-nav" src="/img/youtube-grey.png"
+            alt="Truy cập vào channel youtube của Nine dev để có nhiều thông tin hơn" />
+          <div class="txt-item-nav">Youtube</div>
+        </a>
+      </div>
+      <div id="userInfo" class="group-header-nav">
+        <a href="/login" class="item-nav">
+          <img class="img-item-nav" src="/img/login-grey.png" alt="Đăng nhập để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng nhập</div>
+        </a>
+        <a href="/signup" class="item-nav">
+          <img class="img-item-nav" src="/img/user-grey.png" alt="Đăng ký để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng ký</div>
+        </a>
+      </div>
+    </div>
+    <div class="wrapper-header-mobile">
+      <div class="group-header-mobile">
+        <div class="group-header-logo">
+          <a href="/" class="box-header-logo">
+            <img class="img-header-logo" src="/img/logo.png" alt="" alt="nestjs cơ bản">
+          </a>
+        </div>
+        <div id="burger" class="burger">
+          <div class="strip burger-strip-2">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chỗ chỉnh sửa tiêu đề content nội dụng -->
+    <div class="wrapper-body">
+      <div class="group-body">
+        <div class="box-body-intro">
+          <div class="flex-1">
+            <h1 class="title-body-main">Redux là gì? Hiểu rõ cơ bản cách dùng Redux</h1>
+            <h2 class="title-body-sub">Giới thiệu</h2>
+            <p style="color: #fff;">Nói chung Redux khá là phổ biến. <br> Tuy nhiên, không phải tất cả chúng ta đều biết nó là gì và cách sử dụng nó ra sao. <br> Trong bài này, chúng ta sẽ xem vài lý do tại sao nên sử dụng redux bằng cách phân tích những lợi ích mà nó mang lại và cách hoạt động của nó.</p>
+          </div>
+          <div class="flex-1 box-hello-intro">
+            <div class="title-bg-intro">Nine Dev</div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-blogs-text">
+
+        <!-- Chỗ viết Content Nội Dung -->
+        <h2 style="margin-top: 1rem; font-weight: 600;">I. Redux là gì?</h2>
+        <p>Redux là một `predictable state management tool` cho các ứng dụng Javascript. <br> Nó giúp bạn viết các ứng dụng hoạt động một cách nhất quán, chạy trong các môi trường khác nhau (client, server, and native) và dễ dàng để test. `Redux` ra đời lấy cảm hứng từ tư tưởng của ngôn ngữ `Elm` và kiến trúc `Flux` của Facebook. <br> Do vậy Redux thường dùng kết hợp với React.</p><br>
+        <div class="">
+            <img src="https://topdev.vn/blog/wp-content/uploads/2019/05/redux-store-768x474.png" alt="error">
+        </div>
+        <h2 style="margin-top: 1rem; font-weight: 600;">II. Lý do ra đời Redux</h2>
+        <li>Do yêu cầu cho các ứng dụng single-page sử dụng Javascript ngày càng trở lên phức tạp thì code của chúng ta phải quản lý nhiều state hơn.</li>
+        <li>Với Redux, `state` của ứng dụng được giữ trong một nơi gọi là `store` và mỗi `component` đều có thể access bất kỳ state nào mà chúng muốn từ chúng store này.</li><br>
+        <h2 style="margin-top: 1rem; font-weight: 600;">III. Tại sao ta lại cần state management tool</h2>
+        <li>Hầu hết các lib như React, Angular, etc được built theo một cách sao cho các components đến việc quản lý nội bộ các state của chúng mà không cần bất kỳ một thư viện or tool nào từ bên ngoài.</li>
+        <li>Nó sẽ hoạt động tốt với các ứng dụng có ít components nhưng khi ứng dụng trở lên lớn hơn thì việc quản lý states được chia sẻ qua các components sẽ biến thành các công việc lặt nhặt.</li>
+        <li>Trong một app nơi data được chia sẻ thông qua các components, rất dễ nhầm lẫn để chúng ta có thể thực sự biết nơi mà một state đang live. Một sự lý tưởng là data trong một component nên live trong chỉ một component. Vì vậy việc share data thông qua các components anh em sẽ trở nên khó khăn hơn.</li>
+        <li>Ví dụ, trong react để share data thông qua các components anh em, một state phải live trong component cha. <br> Một method để update chính state này sẽ được cung cấp bởi chính component cha này và pass như props đến các components con.</li><br>
+        <h2 style="margin-top: 1rem; font-weight: 600;">IV. Nguyên lý vận hành</h2><br>
+        <img src="https://topdev.vn/blog/wp-content/uploads/2019/05/redux-workflows.gif" alt="error"><br>
+        <h2 style="margin-top: 1rem; font-weight: 600;">V. Ví dụ thực tế</h2>
+        <p>Giả sử chúng ta xây dựng một ứng dụng todo list đơn giản. <br> Redux sẽ giúp chúng ta quản lý danh sách công việc và trạng thái của từng công việc một cách dễ dàng.</p> <br>
+        <p>Đầu tiên, chúng ta cần định nghĩa trạng thái ban đầu trong Redux:</p><br>
+        <div class="wrapper-render-code">
+            <code>
+                <div class="comment">//src/reducers/todos.js</div>
+                <div class=""><span class="keyword">const</span> initialState = {</div>
+                    <div class="pl-1"><span class="variable">todos</span>:[]</div>
+                <div class="">};</div><br>
+                <div class=""><span class="keyword">export default function</span><span class="function">todosReducer</span>(state = initialState,action) {</div>
+                    <div class="pl-1"><span class="keyword">switch</span>(action.type){</div>
+                        <div class="pl-2"><span class="keyword">case</span> 'ADD_TODO':</div>
+                            <div class="pl-3"><span class="keyword">return</span> {</div>
+                                <div class="pl-4">...state,</div>
+                                <div class="pl-4"><span class="variable">todos</span>: [...state.todos, action.payload],</div>
+                            <div class="pl-3">};</div>
+                        <div class="pl-2"><span class="keyword">case</span> 'REMOVE_TODO':</div>
+                            <div class="pl-3"><span class="keyword">return</span> {</div>
+                                <div class="pl-4">...state,</div>
+                                <div class="pl-4"><span class="variable">todos</span>: state.todos.<span class="function">filter</span>(todo => todo.id !== action.payload),</div>
+                            <div class="pl-3">};</div>
+                        <div class="pl-2 keyword">default</div>
+                            <div class="pl-3"><span class="keyword">return</span> state</div>
+                    <div class="pl-1">}</div>
+                <div class="}"></div>
+            </code>
+        </div><br>
+        <p>Tiếp theo, chúng ta tạo một hàm để tạo action:</p><br>
+        <div class="wrapper-render-code">
+            <code>
+              <div class="comment">//src/actions/todos.js</div>
+              <div class=""><span class="keyword">const</span> nextTodoId = 1</div>
+              <div class=""><span class="keyword">export default function </span><span class="function">addTodo</span>(text) {</div>
+                <div class="pl-1"><span class="keyword">return</span> {</div>
+                  <div class="pl-2"><span class="keyword">type</span> 'ADD_TODO',</div>
+                  <div class="pl-2"><span class="keyword">payload</span>: {</div>
+                    <div class="pl-3"><span class="variable">id</span>: nextTodoId++</div>
+                    <div class="pl-3">text,</div>
+                  <div class="pl-2">},</div>
+                <div class="pl-1">};</div>
+              <div class="">}</div><br>
+            <div class=""><span class="keyword">export default function</span><span class="function"> removeTodo</span>(id) {</div>
+              <div class="pl-1"><span class="keyword">return</span> {</div>
+                <div class="pl-2"><span class="keyword">type</span> 'REMOVE_TODO',</div>
+                <div class="pl-2"><span class="keyword">payload</span>: id</div>
+              <div class="pl-1">};</div>
+            <div class="">}</div>
+            </code>
+        </div><br>
+        <p>Sau đó, chúng ta kết nối Redux với ứng dụng React bằng react-redux:
+          <div class="wrapper-render-code">
+            <code>
+              <div class="comment">//src/App.js</div>
+              <div><span class="keyword">import</span><span> React</span> <span class="keyword">from</span><span class="string"> "react"</span>;</div>
+              <div><span class="keyword">import</span><span> { useSelector, useDispatch}</span> <span class="keyword">from</span><span class="string"> "react-redux"</span>;</div>
+              <div><span class="keyword">import</span><span> { addTodo , removeTodo}}</span> <span class="keyword">from</span><span class="string"> "//src/actions/todos.js"</span>;</div><br>
+
+              <div class=""><span class="keyword">function</span><span class="function"> App</span>{</div>
+                <div class="pl-1"><span class="keyword">const</span> todos = <span class="function">useSelector</span>(state => state.todos.todos);</div>
+                <div class="pl-1"><span class="keyword">const</span> dispatch = <span class="function">useDispatch</span>();</div><br>
+
+                <div class="pl-1"><span class="keyword">function</span><span class="function"> handleAddTodo</span> = text => {</div>
+                  <div class="pl-2"><span class="function">dispatch</span>(<span class="function">addTodo</span>(text));</div>
+                <div class="pl-1">};</div><br>
+                <div class="pl-1"><span class="keyword">function</span><span class="function"> handleRemoveTodo</span> = id => {</div>
+                  <div class="pl-2"><span class="function">dispatch</span>(<span class="function">removeTodo</span>(id));</div>
+                <div class="pl-1">};</div><br>
+                
+                <div class="pl-1"><span class="keyword">return</span> (</div>
+                  <div class="pl-2">&lt;div&gt;</div>
+                    <div class="pl-3">&lt;h1&gt;Todo list&lt;/h1&gt;</div>
+                    <div class="pl-3">&lt;ul&gt;</div>
+                      <div class="pl-4">{todos.<span class="function">map</span>{todo => (</div>
+                        <div class="pl-5">&lt;li key ={todo.id} &gt;</div>
+                          <div class="pl-6">{todo.text}{' '}</div>
+                          <div class="pl-6">&lt;button onClick = () => <span class="function">handleRemoveTodo</span>(todo.id)}&gt;Remove&lt;/button&gt;</div>
+                        <div class="pl-5">&lt;/li&gt;</div>
+                      <div class="pl-4">))}</div>
+                    <div class="pl-3">&lt;/ul&gt;</div>
+                    <div class="pl-3">&lt;button onClick = () => <span class="function">handleAddTodo</span>('New todo')}&gt;Add todo&lt;/button&gt;</div>
+                  <div class="pl-2">&lt;/div&gt;</div>
+                <div class="pl-1">);</div>
+              <div class="">)</div> <br>
+
+              <div class=""><span class="keyword">export default function</span><span class="function"> App</span></div>
+
+
+            </code>
+          </div><br>
+          <p>Cuối cùng, chúng ta tạo store và kết nối nó với ứng dụng React:</p>
+          <div class="wrapper-render-code">
+            <code>
+            </code>
+          </div>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper-footer-ninedev">
+    <div class="group-footer-ninedev">
+      <div class="box-footer">
+        <div class="title-footer">© Nine Dev 2023</div>
+        <div class="d-flex align-items-center">
+          <img class="img-footer-ninedev" src="/img/logo.png" />
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on YouTube</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/email-grey.png" />
+          <div class="txt-footer">tienkim9920@gmail.com</div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on Facebook</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/smartphone-grey.png" />
+          <div class="txt-footer">0763557366</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/logic/navbar.js"></script>
+</body>
+
+</html>
