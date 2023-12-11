@@ -251,6 +251,27 @@
           <p>Cuối cùng, chúng ta tạo store và kết nối nó với ứng dụng React:</p>
           <div class="wrapper-render-code">
             <code>
+              <div class="comment">//src/index.js</div>
+              <div><span class="keyword">import</span><span> React</span> <span class="keyword">from</span><span class="string"> "react"</span>;</div>
+              <div><span class="keyword">import</span><span> ReactDOM</span> <span class="keyword">from</span><span class="string"> "react-dom"</span>;</div>
+              <div><span class="keyword">import</span><span> { Provider}</span> <span class="keyword">from</span><span class="string"> "react-redux"</span>;</div>
+              <div><span class="keyword">import</span><span> { createStore}</span> <span class="keyword">from</span><span class="string"> "redux"</span>;</div>
+              <div><span class="keyword">import</span><span> rootReducer</span> <span class="keyword">from</span><span class="string"> "./reducers"</span>;</div>
+              <div><span class="keyword">import</span><span> App</span> <span class="keyword">from</span><span class="string"> "./App"</span>;</div><br>
+              <div class=""><span class="keyword">const</span> store = <span class="function">createStore</span>(rootReducer);</div><br>
+              <div class="">ReactDOM.<span class="function">render</span>(</div>
+                <div class="pl-1">&lt;Provider store = {store}&gt;</div>
+                  <div class="pl-2">&lt;App/&gt;</div>
+                <div class="pl-1">&lt;/Provider&gt;</div>
+                <div class="pl-1">document.<span class="function">getElementId</span>('root')</div>
+              <div>);</div>
+
+            </code>
+          </div><br>
+          <h2 style="margin-top: 1rem; font-weight: 600;">V. Tài liệu tham khảo</h2>
+          <div class="wrapper-render-code" style="padding: 1rem;">
+            <code>
+              <a style="color: #fff;" href="https://blog.logrocket.com/understanding-redux-tutorial-examples/">https://blog.logrocket.com/understanding-redux-tutorial-examples/</a>
             </code>
           </div>
           
