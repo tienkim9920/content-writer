@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </noscript>
+
+  <!-- Nội dung cần phải thay đổi -->
+  <title>useEffect là gì? Cách sử dụng useEffect trong React Hook</title>
+  <link rel="canonical" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <link rel="shortlink" href="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta name="news_keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta name="keywords"
+    content="Học Lập Trình Trực Tuyến, useEffect là gì?, sử dụng useEffect trong React Hook, tìm hiểu về useEffect trong React Hook, tính chất của useEffect Hook" />
+  <meta property="og:type" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta property="og:url" content="https://ninedev.net/blogs/useeffect-la-gi" />
+  <meta property="og:title" content="useEffect là gì? Cách sử dụng useEffect trong React Hook" />
+  <meta name="description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <meta name="og:description"
+    content="Vòng đời của một Component trong React Hook còn được gọi là Life Cycle Hook là một phần rất quan trọng khi ta xây dụng component. Tuy nhiên, một functional component lại không thể làm việc với các Life Cycle một cách thông thường và useEffect Hooks được sinh ra để thực hiện việc này. Vây, useEffect là gì? Tại sao chúng ta lại nên sử dụng useEffect? Bài viết này sẽ giải đáp những thắc mắc trên giúp bạn!" />
+  <!-- Nội dung cần phải thay đổi -->
+
+  <meta property="og:site_name" content="Nine Dev - Phát Triển Tư Duy Lập Trình" />
+  <meta property="og:image" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:url" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:type" content="website">
+  <meta property="og:image:width" content="294" />
+  <meta property="og:image:height" content="294" />
+  <meta property="og:image:alt" content="https://ninedev.net/img/logo-share.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png" />
+  <link rel="icon" type="image/png" href="/img/logo.png" />
+  <link rel="shortcut icon" href="https://ninedev.net/img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/share.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/blogs.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-44Y1HV8L61"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-44Y1HV8L61');
+  </script>
+</head>
+<style>
+  .img {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .img img {
+    width: 752px;
+    height: 342px;
+
+
+  }
+
+  a {
+    color: #551A8B;
+  }
+</style>
+
+<body>
+  <div class="wrapper-parent-ninedev">
+    <div class="wrapper-header-laptop" id="wrapper-header-laptop">
+      <div class="group-header-logo border-bottom">
+        <a href="/" class="box-header-logo">
+          <img class="img-header-logo" src="/img/logo.png" alt="Nine dev là nền tảng học lập trình trực tuyến">
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="/" class="item-nav">
+          <img class="img-item-nav" src="/img/fire-grey.png" />
+          <div class="txt-item-nav">Nine Dev</div>
+        </a>
+        <a href="/all-course" class="item-nav">
+          <img class="img-item-nav" src="/img/learn-white.png" />
+          <div class="txt-item-nav">Khóa học</div>
+        </a>
+        <a href="/all-project" class="item-nav">
+          <img class="img-item-nav" src="/img/start-up-grey.png" />
+          <div class="txt-item-nav">Dự án</div>
+        </a>
+        <a href="/blogs" class="item-nav active">
+          <img class="img-item-nav" src="/img/blogging.png" />
+          <div class="txt-item-nav active">Bài viết</div>
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="https://www.youtube.com/@ninedev99" target="_blank" class="item-nav">
+          <img class="img-item-nav" src="/img/youtube-grey.png"
+            alt="Truy cập vào channel youtube của Nine dev để có nhiều thông tin hơn" />
+          <div class="txt-item-nav">Youtube</div>
+        </a>
+      </div>
+      <div id="userInfo" class="group-header-nav">
+        <a href="/login" class="item-nav">
+          <img class="img-item-nav" src="/img/login-grey.png" alt="Đăng nhập để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng nhập</div>
+        </a>
+        <a href="/signup" class="item-nav">
+          <img class="img-item-nav" src="/img/user-grey.png" alt="Đăng ký để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng ký</div>
+        </a>
+      </div>
+    </div>
+    <div class="wrapper-header-mobile">
+      <div class="group-header-mobile">
+        <div class="group-header-logo">
+          <a href="/" class="box-header-logo">
+            <img class="img-header-logo" src="/img/logo.png" alt="" alt="nestjs cơ bản">
+          </a>
+        </div>
+        <div id="burger" class="burger">
+          <div class="strip burger-strip-2">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chỗ chỉnh sửa tiêu đề content nội dụng -->
+    <div class="wrapper-body">
+      <div class="group-body">
+        <div class="box-body-intro">
+          <div class="flex-1">
+            <h1 class="title-body-main">Cách Sử dụng axios để gọi một API trong React</h1>
+            <h2 class="title-body-sub">Giới thiệu về axios</h2><br>
+            <p style="color: #fff;">Trong bài viết này, chúng ta sẽ tìm hiểu cách sử dụng thư viện axios trong React JS để gọi một API từ máy chủ. <br> Bạn sẽ được hướng dẫn từ cách cài đặt và sử dụng axios, đến cách xử lý và truyền dữ liệu trả về từ API vào React. <br> Bài viết sẽ giúp bạn có được kiến thức cần thiết để xử lý các yêu cầu API trong ứng dụng React của bạn một cách dễ dàng và hiệu quả đọc thêm về axios.</p>
+          </div>
+          <div class="flex-1 box-hello-intro">
+            <div class="title-bg-intro">Nine Dev</div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-blogs-text">
+
+        <!-- Chỗ viết Content Nội Dung -->
+        <h2 style="margin-top: 1rem; font-weight: 600;">I. Cách cài đặt axios</h2>
+        <p>Để sử dụng axios trong ứng dụng React, chúng ta cần cài đặt thư viện axios vào project của mình. Có nhiều cách để cài đặt axios, nhưng phổ biến nhất là sử dụng npm hoặc yarn.</p>
+        <p>Để cài đặt axios bằng npm, hãy mở terminal và nhập lệnh sau:</p><br>
+        <div class="wrapper-render-code">
+            <code>
+                <div class="">npm install axios</div>
+            </code>
+        </div><br>
+        <p>Để cài đặt axios bằng yarn, hãy mở terminal và nhập lệnh sau:</p><br>
+        <div class="wrapper-render-code">
+            <code>
+                <div class="">yarn add axios</div>
+            </code>
+        </div><br>
+        <h2 style="margin-top: 1rem; font-weight: 600;">II. Ví dụ call một API bằng</h2>
+        <div class="wrapper-render-code">
+            <code>
+                <div><span class="keyword">import</span> React, { useEffect, useState }<span class="keyword"> from </span><span class="string">"react"</span></div><br><br>
+                <div><span class="keyword">import</span> axios <span class="keyword"> from </span><span class="string">"axios"</span></div><br><br>
+                <div><span class="keyword">const</span> <span class="function">App</span> = () => {</div>
+                    <div  class="pl-1"><span class="keyword">const</span> [data, setData] = <span class="function">useState</span>([]);</div><br>
+                    <div class="pl-1"> <span class="function">useEffect</span> (() => {</div>
+                        <div class="pl-2"><span class="keyword">try</span> {</div>
+                            <div class="pl-3"><span class="keyword">const</span> response = await axios.<span class="function">get</span>('https://jsonplaceholder.typicode.com/users');</div>
+                            <div class="pl-3"><span class="function">setData</span>(response.data);</div>
+                        <div class="pl-2">}<span class="keyword"> catch</span>(error) {</div>   
+                            <div class="pl-3">console.<span class="function">log</span>(error);</div> 
+                        <div class="pl-2">}</div>
+                    <div class="pl-1">}</div>
+                    <div class="pl-1"> <span class="function">fetchData</span>();</div>
+                <div class="">}, []);</div><br>
+                <div class="pl-2"><span class="keyword"> return</span> (</div>   
+                    <div class="pl-1">&lt;div&gt;</div>
+                        <div class="pl-2">&lt;h1&gt; &lt;span class=ez-toc-section id=List_of_Users-2&gt;&lt;/span&gt;List of Users&lt;span class=ez-toc-section-end&gt;&lt;/span&gt; &lt;/h1&gt;</div>
+                        <div class="pl-2">&lt;ul&gt;</div>    
+                            <div class="pl-3">{data.<span class="function">map</span>(user => (</div>   
+                                <div class="pl-4">&lt;li key={user.id}&gt;{user.name}&lt;/li&gt;</div>
+                            <div class="pl-3">))}</div>
+                        <div class="pl-2">&lt;/ul&gt;</div>    
+                    <div class="pl-1">&lt;/div&gt;</div>       
+                <div class="">);</div>
+                <div class="">}</div> <br>
+                <div class=""><span class="keyword">export default </span>App</div>
+
+
+            </code>
+        </div><br>
+        <p>Lưu ý:</p>
+        <p>Trong ví dụ trên, chúng ta sử dụng phương thức useEffect để gọi API khi component được tải lên. <br> Chúng ta sử dụng phương thức `axios.get` để gọi API tới địa chỉ https://jsonplaceholder.typicode.com/users. <br> Khi server trả về dữ liệu, chúng ta lưu dữ liệu vào state của component bằng cách sử dụng phương thức setData. <br> Cuối cùng, chúng ta hiển thị danh sách người dùng bằng cách map qua dữ liệu trong state data.</p>
+        <p>Lưu ý rằng trong ví dụ trên, chúng ta sử dụng trang web https://jsonplaceholder.typicode.com để mô phỏng API. <br> Đối với các trường hợp thực tế, địa chỉ API cần phải được thay đổi tương ứng với API mà bạn muốn gọi.</p>
+        <h2 style="margin-top: 1rem; font-weight: 600;">III. Kết luận </h2>
+        <li>Sử dụng Axios để gọi một API trong React JS là một cách tiện lợi và linh hoạt để lấy dữ liệu từ server. Axios cung cấp một cú pháp đơn giản để gọi API bằng các phương thức HTTP như GET, POST, PUT và DELETE.</li>
+        <li>Ngoài ra, Axios cũng có thể xử lý các yêu cầu truyền tham số, header và body cho các yêu cầu. Với Axios, chúng ta có thể sử dụng cú pháp async/await để gọi API và đợi cho kết quả trả về, giúp mã của chúng ta trở nên dễ đọc hơn và dễ bảo trì hơn. </li>
+        <li>Tuy nhiên, việc sử dụng Axios cũng cần cẩn thận để tránh các lỗ hổng bảo mật. Chúng ta cần xác nhận rằng các yêu cầu được gửi đến server từ địa chỉ tin cậy và đảm bảo rằng chúng ta không gửi thông tin nhạy cảm như mật khẩu hoặc thông tin tài khoản trên đường truyền.</li>
+    </div>
+    </div>
+  </div>
+  <div class="wrapper-footer-ninedev">
+    <div class="group-footer-ninedev">
+      <div class="box-footer">
+        <div class="title-footer">© Nine Dev 2023</div>
+        <div class="d-flex align-items-center">
+          <img class="img-footer-ninedev" src="/img/logo.png" />
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on YouTube</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/email-grey.png" />
+          <div class="txt-footer">tienkim9920@gmail.com</div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on Facebook</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/smartphone-grey.png" />
+          <div class="txt-footer">0763557366</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/logic/navbar.js"></script>
+</body>
+
+</html>
