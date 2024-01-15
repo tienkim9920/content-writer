@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </noscript>
+
+  <!-- Nội dung cần phải thay đổi -->
+  <title>Tối ưu hoá ứng dụng React với Lazy Loading</title>
+  <link rel="canonical" href="https://ninedev.net/blogs/su-dung-lazy-load" />
+  <link rel="shortlink" href="https://ninedev.net/blogs/su-dung-lazy-load" />
+  <meta name="news_keywords"
+    content="Học Lập Trình Trực Tuyến, Tối ưu hoá ứng dụng React với Lazy Loading" />
+  <meta name="keywords"
+    content="Học Lập Trình Trực Tuyến, Tối ưu hoá ứng dụng React với Lazy Loading" />
+  <meta property="og:type" content="Tối ưu hoá ứng dụng React với Lazy Loading" />
+  <meta property="og:url" content="https://ninedev.net/blogs/su-dung-lazy-load" />
+  <meta property="og:title" content="Tối ưu hoá ứng dụng React với Lazy Loading" />
+  <meta name="description"
+    content="Lazy Loading là một kỹ thuật cũ để tối ưu hoá ứng dụng web cũng như ứng dụng di động. Cách hoạt động của nó khá đơn giản - Không hiển thị đối tượng nếu chúng không được xem hoặc không được yêu cầu tại thời điểm đó." />
+  <meta name="og:description"
+    content="Lazy Loading là một kỹ thuật cũ để tối ưu hoá ứng dụng web cũng như ứng dụng di động. Cách hoạt động của nó khá đơn giản - Không hiển thị đối tượng nếu chúng không được xem hoặc không được yêu cầu tại thời điểm đó." />
+  <!-- Nội dung cần phải thay đổi -->
+
+  <meta property="og:site_name" content="Nine Dev - Phát Triển Tư Duy Lập Trình" />
+  <meta property="og:image" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:url" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:type" content="website">
+  <meta property="og:image:width" content="294" />
+  <meta property="og:image:height" content="294" />
+  <meta property="og:image:alt" content="https://ninedev.net/img/logo-share.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png" />
+  <link rel="icon" type="image/png" href="/img/logo.png" />
+  <link rel="shortcut icon" href="https://ninedev.net/img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/share.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/blogs.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-44Y1HV8L61"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-44Y1HV8L61');
+  </script>
+</head>
+<style>
+  .img {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .img img {
+    width: 752px;
+    height: 342px;
+
+
+  }
+
+  a {
+    color: #551A8B;
+  }
+</style>
+
+<body>
+  <div class="wrapper-parent-ninedev">
+    <div class="wrapper-header-laptop" id="wrapper-header-laptop">
+      <div class="group-header-logo border-bottom">
+        <a href="/" class="box-header-logo">
+          <img class="img-header-logo" src="/img/logo.png" alt="Nine dev là nền tảng học lập trình trực tuyến">
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="/" class="item-nav">
+          <img class="img-item-nav" src="/img/fire-grey.png" />
+          <div class="txt-item-nav">Nine Dev</div>
+        </a>
+        <a href="/all-course" class="item-nav">
+          <img class="img-item-nav" src="/img/learn-white.png" />
+          <div class="txt-item-nav">Khóa học</div>
+        </a>
+        <a href="/all-project" class="item-nav">
+          <img class="img-item-nav" src="/img/start-up-grey.png" />
+          <div class="txt-item-nav">Dự án</div>
+        </a>
+        <a href="/blogs" class="item-nav active">
+          <img class="img-item-nav" src="/img/blogging.png" />
+          <div class="txt-item-nav active">Bài viết</div>
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="https://www.youtube.com/@ninedev99" target="_blank" class="item-nav">
+          <img class="img-item-nav" src="/img/youtube-grey.png"
+            alt="Truy cập vào channel youtube của Nine dev để có nhiều thông tin hơn" />
+          <div class="txt-item-nav">Youtube</div>
+        </a>
+      </div>
+      <div id="userInfo" class="group-header-nav">
+        <a href="/login" class="item-nav">
+          <img class="img-item-nav" src="/img/login-grey.png" alt="Đăng nhập để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng nhập</div>
+        </a>
+        <a href="/signup" class="item-nav">
+          <img class="img-item-nav" src="/img/user-grey.png" alt="Đăng ký để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng ký</div>
+        </a>
+      </div>
+    </div>
+    <div class="wrapper-header-mobile">
+      <div class="group-header-mobile">
+        <div class="group-header-logo">
+          <a href="/" class="box-header-logo">
+            <img class="img-header-logo" src="/img/logo.png" alt="" alt="nestjs cơ bản">
+          </a>
+        </div>
+        <div id="burger" class="burger">
+          <div class="strip burger-strip-2">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chỗ chỉnh sửa tiêu đề content nội dụng -->
+    <div class="wrapper-body">
+      <div class="group-body">
+        <div class="box-body-intro">
+          <div class="flex-1">
+            <h1 class="title-body-main">Tối ưu hoá ứng dụng React với Lazy Loading</h1>
+            <p style="color: #fff;">Lazy Loading là một kỹ thuật cũ để tối ưu hoá ứng dụng web cũng như ứng dụng di động. Cách hoạt động của nó khá đơn giản - Không hiển thị đối tượng nếu chúng không được xem hoặc không được yêu cầu tại thời điểm đó.</p>
+          </div>
+          <div class="flex-1 box-hello-intro">
+            <div class="title-bg-intro">Nine Dev</div>
+          </div>
+        </div>
+      </div>
+    <div class="wrapper-blogs-text">
+
+        <!-- Chỗ viết Content Nội Dung -->
+        <h2 style="margin-top: 1rem; font-weight: 600;">I. Tại sao lại cần Lazy Loading?</h2>
+            <p>Để đảm bảo tính thân thiện với người dùng, chúng ta không nên để họ xem toàn bộ trang web, ít nhất là vào lúc bắt đầu. Cho dù giao diện người dùng ứng dụng của chúng ta đã được cấu trúc như thế nào, có một số thành phần nhất định mà người dùng có thể không cần xem từ ngay lúc đầu hoặc không bao giờ cần xem.</p>
+            <p>Trong những trường hợp này, việc hiển thị những thành phần đó không chỉ gây hại cho hiệu suất của ứng dụng mà còn lãng phí rất nhiều tài nguyên ( đặc biệt khi chúng có chứa hình ảnh ) .</p>
+            <p>Vậy nên, việc loading và rendering các đối tượng đó theo yêu cầu dường như là một phương án hiệu quả để giải quyết vấn đề trên. Nó giúp cải thiện hiệu suất của ứng dụng, đồng thời có thể giúp ta tiết kiệm rất nhiều tài nguyên.</p>
+        <h2 style="margin-top: 1rem; font-weight: 600;">II. Sử dụng Lazy Loading</h2>
+            <p>Trong React, lazy loading cũng được hỗ trợ thông qua React Suspense và React.lazy. Dưới đây là một ví dụ đơn giản:</p>
+            <div class="wrapper-render-code">
+                <code>
+                    <div class="comment">// ComponentA.js</div>
+                    <div><span class="keyword">import</span> React <span class="keyword"> from </span><span class="string">"react"</span></div><br><br>
+                    <div><span class="keyword">const</span> <span class="function">ComponentA </span> = () => {</div>
+                        <div  class="pl-1"><span class="keyword">return </span> &lt;div&gt; This is Component A &lt;/div&gt;</div><br>
+                    <div class="">};</div><br>
+                    <div class=""><span class="keyword">export default </span>ComponentA;</div>
+
+                </code>
+            </div><br>
+            <div class="wrapper-render-code">
+                <code>
+                    <div class="comment">// ComponentB.js</div>
+                    <div><span class="keyword">import</span> React <span class="keyword"> from </span><span class="string">"react"</span></div><br><br>
+                    <div><span class="keyword">const</span> <span class="function">ComponentB </span> = () => {</div>
+                        <div  class="pl-1"><span class="keyword">return </span> &lt;div&gt; This is Component A &lt;/div&gt;</div><br>
+                    <div class="">};</div><br>
+                    <div class=""><span class="keyword">export default </span>ComponentB;</div>
+
+                </code>
+            </div><br>
+            <div class="wrapper-render-code">
+                <code>
+                    <div class="comment">// App.js</div>
+                    <div><span class="keyword">import</span> React, { lazy, Suspense } <span class="keyword"> from </span><span class="string">"react"</span></div><br><br>
+                    <div class="comment">// Lazy load ComponentA</div>
+                    <div class=""><span class="keyword">const</span>LazyComponentA = <span class="function">lazy</span>(() => import('./ComponentA'));</div><br><br>
+                    <div><span class="keyword">const</span> <span class="function">App </span> = () => {</div>
+                        <div class="pl-1"><span class="keyword">return</span> (</div>
+                            <div class="pl-2">&lt;div&gt;</div>
+                                <div class="pl-3">&lt;h1&gt; Hello, this is the main content! &lt;/h1&gt;</div>
+                                <div class="pl-3 comment">// Render ComponentA lazily</div>
+                                <div class="pl-3">&lt;Suspense fallback={<div>Loading...</div>}&gt;</div>
+                                    <div class="pl-4">&lt;LazyComponentA /&gt;</div>
+                                <div class="pl-3">&lt;/Suspense &gt;</div><br>
+                                <div class="pl-3 comment">Render ComponentB immediately</div>
+                                <div class="pl-3">&lt;LazyComponentB /&gt;</div>
+
+                            <div class="pl-2">&lt;/div&gt;</div>
+                        <div class="pl-1">);</div>
+                    <div class="">};</div>
+
+                    <div class=""><span class="keyword">export default </span>App;</div>
+
+                </code>
+            </div><br>
+            <p>Trong đoạn mã trên:</p><br>
+            <li>`ComponentA.js` và `ComponentB.js` là hai components React đơn giản.</li>
+            <li>Trong `App.js`, `LazyComponentA` được tạo bằng cách sử dụng hàm `lazy()` và `import(). Điều này làm cho `ComponentA` chỉ được tải khi nó cần được render.</li>
+            <li>Sử dụng `<Suspense>` để xác định component nào đang được lazy load và cung cấp một fallback UI (ở đây là "Loading...") trong thời gian chờ. <br>
+                Khi người dùng truy cập ứng dụng và tương tác với nó, `ComponentA` sẽ được tải lazy chỉ khi nó được render, giúp giảm thời gian tải ban đầu và cải thiện trải nghiệm người dùng.
+            </li>
+            <h2 style="margin-top: 1rem; font-weight: 600;">III. Kết luận và Video</h2>
+                <p>Video chi tiết hơn:</p>
+                <div class="wrapper-render-code">
+                <code>
+                    <a style="color: #fff;" href="https://youtu.be/wVBLyONIJMg?si=BTcNCMXZbvp2HesS" target="_blank">https://youtu.be/wVBLyONIJMg?si=BTcNCMXZbvp2HesS</a>
+                </code>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="wrapper-footer-ninedev">
+    <div class="group-footer-ninedev">
+      <div class="box-footer">
+        <div class="title-footer">© Nine Dev 2023</div>
+        <div class="d-flex align-items-center">
+          <img class="img-footer-ninedev" src="/img/logo.png" />
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on YouTube</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/email-grey.png" />
+          <div class="txt-footer">tienkim9920@gmail.com</div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on Facebook</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/smartphone-grey.png" />
+          <div class="txt-footer">0763557366</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/logic/navbar.js"></script>
+</body>
+
+</html>

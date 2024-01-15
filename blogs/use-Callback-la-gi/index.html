@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </noscript>
+
+  <!-- Nội dung cần phải thay đổi -->
+  <title>useCallback trong React Js là gì?</title>
+  <link rel="canonical" href="https://ninedev.net/blogs/use-Callback-la-gi" />
+  <link rel="shortlink" href="https://ninedev.net/blogs/use-Callback-la-gi" />
+  <meta name="news_keywords"
+    content="Học Lập Trình Trực Tuyến, useCallback trong React Js là gì?" />
+  <meta name="keywords"
+    content="Học Lập Trình Trực Tuyến, useCallback trong React Js là gì?" />
+  <meta property="og:type" content="useCallback trong React Js là gì?" />
+  <meta property="og:url" content="https://ninedev.net/blogs/use-Callback-la-gi" />
+  <meta property="og:title" content="useCallback trong React Js là gì?" />
+  <meta name="description"
+    content="Khái niệm: Là một react hooks giúp mình tạo ra một memoized callback và chỉ tạo ra callback mới khi dependencies thay đổi." />
+  <meta name="og:description"
+    content="Khái niệm: Là một react hooks giúp mình tạo ra một memoized callback và chỉ tạo ra callback mới khi dependencies thay đổi." />
+  <!-- Nội dung cần phải thay đổi -->
+
+  <meta property="og:site_name" content="Nine Dev - Phát Triển Tư Duy Lập Trình" />
+  <meta property="og:image" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:url" content="https://ninedev.net/img/logo-share.jpg" />
+  <meta property="og:image:type" content="website">
+  <meta property="og:image:width" content="294" />
+  <meta property="og:image:height" content="294" />
+  <meta property="og:image:alt" content="https://ninedev.net/img/logo-share.jpg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.png" />
+  <link rel="icon" type="image/png" href="/img/logo.png" />
+  <link rel="shortcut icon" href="https://ninedev.net/img/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/share.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/blogs.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-44Y1HV8L61"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-44Y1HV8L61');
+  </script>
+</head>
+<style>
+  .img {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .img img {
+    width: 752px;
+    height: 342px;
+
+
+  }
+
+  a {
+    color: #551A8B;
+  }
+</style>
+
+<body>
+  <div class="wrapper-parent-ninedev">
+    <div class="wrapper-header-laptop" id="wrapper-header-laptop">
+      <div class="group-header-logo border-bottom">
+        <a href="/" class="box-header-logo">
+          <img class="img-header-logo" src="/img/logo.png" alt="Nine dev là nền tảng học lập trình trực tuyến">
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="/" class="item-nav">
+          <img class="img-item-nav" src="/img/fire-grey.png" />
+          <div class="txt-item-nav">Nine Dev</div>
+        </a>
+        <a href="/all-course" class="item-nav">
+          <img class="img-item-nav" src="/img/learn-white.png" />
+          <div class="txt-item-nav">Khóa học</div>
+        </a>
+        <a href="/all-project" class="item-nav">
+          <img class="img-item-nav" src="/img/start-up-grey.png" />
+          <div class="txt-item-nav">Dự án</div>
+        </a>
+        <a href="/blogs" class="item-nav active">
+          <img class="img-item-nav" src="/img/blogging.png" />
+          <div class="txt-item-nav active">Bài viết</div>
+        </a>
+      </div>
+      <div class="group-header-nav border-bottom">
+        <a href="https://www.youtube.com/@ninedev99" target="_blank" class="item-nav">
+          <img class="img-item-nav" src="/img/youtube-grey.png"
+            alt="Truy cập vào channel youtube của Nine dev để có nhiều thông tin hơn" />
+          <div class="txt-item-nav">Youtube</div>
+        </a>
+      </div>
+      <div id="userInfo" class="group-header-nav">
+        <a href="/login" class="item-nav">
+          <img class="img-item-nav" src="/img/login-grey.png" alt="Đăng nhập để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng nhập</div>
+        </a>
+        <a href="/signup" class="item-nav">
+          <img class="img-item-nav" src="/img/user-grey.png" alt="Đăng ký để trở thành thành viên của Nine Dev" />
+          <div class="txt-item-nav">Đăng ký</div>
+        </a>
+      </div>
+    </div>
+    <div class="wrapper-header-mobile">
+      <div class="group-header-mobile">
+        <div class="group-header-logo">
+          <a href="/" class="box-header-logo">
+            <img class="img-header-logo" src="/img/logo.png" alt="" alt="nestjs cơ bản">
+          </a>
+        </div>
+        <div id="burger" class="burger">
+          <div class="strip burger-strip-2">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chỗ chỉnh sửa tiêu đề content nội dụng -->
+    <div class="wrapper-body">
+      <div class="group-body">
+        <div class="box-body-intro">
+          <div class="flex-1">
+            <h1 class="title-body-main">useCallback trong React Js là gì?</h1>
+          </div>
+          <div class="flex-1 box-hello-intro">
+            <div class="title-bg-intro">Nine Dev</div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-blogs-text">
+
+        <!-- Chỗ viết Content Nội Dung -->
+        <h2 style="margin-top: 1rem; font-weight: 600;">I. UseCallback() là gì?</h2>
+        <p>Khái niệm: Là một react hooks giúp mình tạo ra một memoized callback và chỉ tạo ra callback mới khi dependencies thay đổi.</p>
+        <li>Nhận vào 2 tham số: 1 là function, 2 là dependencies.</li>
+        <li>Return memoized callback.</li>
+        <li>Chỉ tạo ra function mới khi dependencies thay đổi.</li>
+        <li>Nếu dùng empty dependencies thì không bao giờ tạo ra function mới.</li><br>
+        <h2 style="margin-top: 1rem; font-weight: 600;">II. Sử dụng useCallback trong React Js</h2>
+
+        <p>Để sử dụng useCallback trong React Js, ta cần import nó từ thư viện react và khai báo trong component như sau:</p>
+        <div class="wrapper-render-code">
+          <code>
+            <div><span class="keyword">import</span> React, { useCallback } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
+            <div class="">&lt;a href="https://www.w3schools.com/react/react_usecallback.asp"/&gt; function &lt;/a&gt; MyComponent() {</div>
+              <div class="pl-1"><span class="keyword">const</span> memoizedCallback = useCallback(</div>
+                <div class="pl-2">() => {</div>
+                  <div class="pl-3"><span class="function">doSomething</span>(a, b);</div>
+                <div class="pl-2">},</div>
+                <div class="pl-2">[a, b],</div>
+              <div class="pl-1">);</div>
+              <div class="pl-1"><span class="keyword">return</span> (</div>
+                  <div class="pl-2">&lt;div&gt;</div>
+                    <div class="pl-3">&lt;button onClick={memoizedCallback}&gt; Click me &lt;/button&gt;</div>
+                  <div class="pl-2">&lt;/div&gt;</div>
+                <div class="pl-1">);</div>
+              <div class="">}</div>
+            </code>
+        </div>
+        <p>Trong đó, memoizedCallback là một function đã được memoize và chỉ được tính toán lại khi các dependencies (a, b) thay đổi. Khi sử dụng useCallback, ta giúp tránh việc re-render không cần thiết cho component, tăng hiệu suất và tốc độ ứng dụng.</p>
+      
+        <h3>Ví dụ đơn giản về cách sử dụng useCallback</h3>
+        <p>Dưới đây là một ví dụ đơn giản về cách sử dụng useCallback trong React để tối ưu hóa hiệu suất của component:</p>
+        <div class="wrapper-render-code">
+          <code>
+            <div><span class="keyword">import</span> React, {&lt;a href="https://www.w3schools.com/react/react_usecallback.asp"/&gt; useState &lt;/a&gt;, useCallback } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
+            <div class=""><span class="function">function</span> Counter() {</div>
+              <div class="pl-1"><span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(0);</div>
+              <div class="pl-1"><span class="keyword">const</span> increment  = useCallback(() => {</div>
+                <div class="pl-2"><span class="function">setCount</span>(count + 1);</div>
+              <div class="pl-1">}, [count]);</div>
+              <div class="pl-1"><span class="keyword">return</span> (</div>
+                <div class="pl-2">&lt;div&gt;</div>
+                  <div class="pl-3">&lt;h1&gt;&lt;span class=ez-toc-section id=Count_count&gt;&lt;/span&gt; Count: {count} &lt;span class=ez-toc-section-end&gt;&lt;/span&gt;&lt;/h1&gt;</div>
+                  <div class="pl-3">&lt;button  onClick={increment}&gt; Increment &lt;/button &gt;</div>
+                <div class="pl-2">&lt;/div&gt;</div>
+
+
+                <div class="pl-1">);</div>
+              <div class="">}</div>
+            </code>
+        </div><br>
+        <li>Ở đây, chúng ta khai báo một function increment sử dụng useCallback. Để đảm bảo rằng increment không bị tạo lại mỗi khi component render lại, chúng ta truyền vào dependencies count trong mảng thứ 2 của useCallback. Khi giá trị của count thay đổi, React sẽ tạo lại function increment, trong trường hợp này, chúng ta muốn increment được tạo lại khi và chỉ khi giá trị của count thay đổi.</li><br>
+        <li>Function increment này sẽ được sử dụng trong callback của sự kiện onClick của button, khi click vào button, state count sẽ được tăng lên 1.</li>
+        <li>Với việc sử dụng useCallback, chúng ta có thể tối ưu hóa hiệu suất của component bằng cách tránh việc tạo lại các function mới mỗi khi component render lại.</li>
+        <h2 style="margin-top: 1rem; font-weight: 600;">III. Kết luận </h2>
+        <p>Kết luận:Trong React, khi sử dụng các function component, nếu ta không sử dụng useCallback, mỗi lần component re-render, function sẽ được tạo lại một lần mới, gây ra tốn tài nguyên. Việc sử dụng useCallback giúp giảm thiểu việc tạo mới các hàm trong mỗi lần re-render, tăng hiệu suất ứng dụng React. Tuy nhiên, ta cần phải sử dụng useCallback đúng cách và hiểu rõ khi nào nên sử dụng để tránh làm giảm hiệu suất thay vì tăng nó.</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper-footer-ninedev">
+    <div class="group-footer-ninedev">
+      <div class="box-footer">
+        <div class="title-footer">© Nine Dev 2023</div>
+        <div class="d-flex align-items-center">
+          <img class="img-footer-ninedev" src="/img/logo.png" />
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on YouTube</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/email-grey.png" />
+          <div class="txt-footer">tienkim9920@gmail.com</div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="txt-footer">Nine Dev on Facebook</div>
+        <div class="d-flex align-items-center cl-1">
+          <img class="img-footer" src="/img/smartphone-grey.png" />
+          <div class="txt-footer">0763557366</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/logic/navbar.js"></script>
+</body>
+
+</html>
