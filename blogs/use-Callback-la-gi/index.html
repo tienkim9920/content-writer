@@ -153,42 +153,48 @@
         <p>Để sử dụng useCallback trong React Js, ta cần import nó từ thư viện react và khai báo trong component như sau:</p>
         <div class="wrapper-render-code">
           <code>
-            <div><span class="keyword">import</span> React, { useCallback } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
-            <div class="">&lt;a href="https://www.w3schools.com/react/react_usecallback.asp"/&gt; function &lt;/a&gt; MyComponent() {</div>
-              <div class="pl-1"><span class="keyword">const</span> memoizedCallback = useCallback(</div>
-                <div class="pl-2">() => {</div>
-                  <div class="pl-3"><span class="function">doSomething</span>(a, b);</div>
-                <div class="pl-2">},</div>
-                <div class="pl-2">[a, b],</div>
-              <div class="pl-1">);</div>
-              <div class="pl-1"><span class="keyword">return</span> (</div>
-                  <div class="pl-2">&lt;div&gt;</div>
-                    <div class="pl-3">&lt;button onClick={memoizedCallback}&gt; Click me &lt;/button&gt;</div>
-                  <div class="pl-2">&lt;/div&gt;</div>
-                <div class="pl-1">);</div>
-              <div class="">}</div>
+            <div><span class="keyword">import</span> React, { useState, useCallback } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
+            <div><span class="keyword">const</span> <span class="function">MyComponent</span> = () => {</div>
+              <div  class="pl-1"><span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(0);</div><br>
+              <div class="pl-1 comment">// Sử dụng useCallback để memoize hàm callback</div>
+              <div class="pl-1"><span class="keyword">const</span> handleClick  = useCallback(</div>
+                <div class="pl-3">() => {</div>
+                  <div class="pl-4"><span class="function">setCount</span>(count + 1);</div>
+                <div class="pl-3">},</div>
+                <div class="pl-3">[count]); <span class="comment">// Dependency array: chỉ khi count thay đổi, hàm mới được tạo lại</span> </div><br>
+              <div class="pl-2"><span class="keyword">return</span> (</div>
+                  <div class="pl-3">&lt;div&gt;</div>
+                    <div class="pl-4">&lt;p&gt; Count: {count} &lt;/p&gt;</div>
+
+                    <div class="pl-4">&lt;button onClick={handleClick }&gt; Increase Count &lt;/button&gt;</div>
+                  <div class="pl-3">&lt;/div&gt;</div>
+                <div class="pl-2">);</div>
+      
+              <div class="">};</div><br>
+              <div class=""><span class="keyword">export default</span> MyComponent;</div>
+
             </code>
         </div>
-        <p>Trong đó, memoizedCallback là một function đã được memoize và chỉ được tính toán lại khi các dependencies (a, b) thay đổi. Khi sử dụng useCallback, ta giúp tránh việc re-render không cần thiết cho component, tăng hiệu suất và tốc độ ứng dụng.</p>
+        <p>Trong ví dụ này, handleClick được memoized bằng useCallback. Dependency array ([count]) đặc tả các biến phụ thuộc mà khi thay đổi, hàm callback sẽ được tạo lại. Trong trường hợp này, chỉ khi count thay đổi, handleClick mới được tạo lại.</p>
       
         <h3>Ví dụ đơn giản về cách sử dụng useCallback</h3>
         <p>Dưới đây là một ví dụ đơn giản về cách sử dụng useCallback trong React để tối ưu hóa hiệu suất của component:</p>
         <div class="wrapper-render-code">
           <code>
-            <div><span class="keyword">import</span> React, {&lt;a href="https://www.w3schools.com/react/react_usecallback.asp"/&gt; useState &lt;/a&gt;, useCallback } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
+            <div><span class="keyword">import</span> React, { useCallback } <span class="keyword"> from </span><span class="string">"react"</span></div><br>
             <div class=""><span class="function">function</span> Counter() {</div>
-              <div class="pl-1"><span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(0);</div>
-              <div class="pl-1"><span class="keyword">const</span> increment  = useCallback(() => {</div>
+              <div class="pl-2"><span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(0);</div>
+              <div class="pl-2"><span class="keyword">const</span> increment  = useCallback(() => {</div>
                 <div class="pl-2"><span class="function">setCount</span>(count + 1);</div>
-              <div class="pl-1">}, [count]);</div>
-              <div class="pl-1"><span class="keyword">return</span> (</div>
-                <div class="pl-2">&lt;div&gt;</div>
-                  <div class="pl-3">&lt;h1&gt;&lt;span class=ez-toc-section id=Count_count&gt;&lt;/span&gt; Count: {count} &lt;span class=ez-toc-section-end&gt;&lt;/span&gt;&lt;/h1&gt;</div>
-                  <div class="pl-3">&lt;button  onClick={increment}&gt; Increment &lt;/button &gt;</div>
-                <div class="pl-2">&lt;/div&gt;</div>
+              <div class="">}, [count]);</div><br>
+              <div class="pl-2"><span class="keyword">return</span> (</div>
+                <div class="pl-3">&lt;div&gt;</div>
+                  <div class="pl-4">&lt;h1&gt;&lt;span class=ez-toc-section id=Count_count&gt;&lt;/span&gt; Count: {count} &lt;span class=ez-toc-section-end&gt;&lt;/span&gt;&lt;/h1&gt;</div>
+                  <div class="pl-4">&lt;button  onClick={increment}&gt; Increment &lt;/button &gt;</div>
+                <div class="pl-3">&lt;/div&gt;</div>
 
 
-                <div class="pl-1">);</div>
+                <div class="pl-2">);</div>
               <div class="">}</div>
             </code>
         </div><br>
